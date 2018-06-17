@@ -1,6 +1,8 @@
 #! /usr/bin/env php
 
-<?php 
+<?php
+
+use CJ\NewCommand;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -9,12 +11,6 @@ require 'vendor/autoload.php';
 
 $app = new Application('Laracast Demo','1.0');
 
-$app->register('sayHelloTo')
-    ->setDescription('Offer A Greeting To The Person')
-    ->addArgument('name',\Symfony\Component\Console\Input\InputArgument::REQUIRED,'Your Name Is Required')
-    ->setCode(function (InputInterface $input, OutputInterface $output){
-        $name = $input->getArgument('name');
-        $output->writeln("<comment>Hello " . $name .'</comment>');
-    });
+$app->add(new NewCommand(new GuzzleHttp\Client));
 
 $app->run();
